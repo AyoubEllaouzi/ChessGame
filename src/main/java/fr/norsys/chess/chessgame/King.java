@@ -44,5 +44,10 @@ public class King implements ChessPiece {
     public Position isBlocked() {
         return null;
     }
+
+    @Override
+    public PieceColor getColor() {
+        return null;
+    }
 //infinity
 }

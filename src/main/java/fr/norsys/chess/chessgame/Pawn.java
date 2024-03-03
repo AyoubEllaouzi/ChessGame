@@ -79,4 +79,9 @@ public class Pawn implements ChessPiece {
         }
         return null;
     }
+
+    @Override
+    public PieceColor getColor() {
+        return null;
+    }
 }

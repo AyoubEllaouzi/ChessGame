@@ -16,7 +16,6 @@ public class Board {
     public boolean validMove(ChessPiece piece, int x, int y) {
         List<Position> possibleMoves = piece.possibleMoves();
         for (Position position:possibleMoves){
-            System.out.println("++++++++++++" + position.getX()+" : "+position.getY());
             if (position.getX() == x && position.getY()==y){
                 System.out.println("========= " + position.getX()+" : "+position.getY());
                 return true;
@@ -27,18 +26,32 @@ public class Board {
     }
 
     public boolean isBlocked(ChessPiece piece) {
-        Position position = piece.getPosition();
-        if (gameBoard.containsKey(position)) {
-            System.out.println("You are blocked, you can't move.");
-            return true;
-        } else {
-            System.out.println("You are not blocked, you can move.");
-            return false;
+        Position checkPosition = piece.isBlocked();
+        System.out.println(";;;;;;;;" + checkPosition);
+        System.out.println(";;;;;;;;" + gameBoard.toString());
+
+        // Check if the position is occupied in the game board
+        if (gameBoard.containsKey(checkPosition)) {
+            ChessPiece blockingPiece = gameBoard.get(checkPosition);
+
+            // Check if the blocking piece has the same color as the given piece
+            if (blockingPiece.getColor() == piece.getColor()) {
+                System.out.println("You are blocked by your own piece, you can't move.");
+                return true;
+            } /*else {
+                System.out.println("You are blocked by an opponent's piece.");
+                return true;
+            }*/
         }
+
+        System.out.println("You are not blocked, you can move.");
+        return false;
+
     }
+
     public boolean validAttack(ChessPiece piece, ChessPiece target) {
         List<Position> possibleAttacks = piece.possibleAttacks();
-        System.out.println( possibleAttacks.toString());
+        System.out.println("hi");
         for (Position position : possibleAttacks) {
             if (position.equals(target.getPosition())) {
                 System.out.println("Piece at position " + target.getPosition() + " can be attacked.");
@@ -77,5 +90,10 @@ public class Board {
 
             System.out.println("Position: " + position.getX() +"-"+ position.getY() + ", Chess Piece: " + chessPiece.getPosition().getX()+"-"+chessPiece.getPosition().getY());
         }
+    }
+
+    public void displayPossibleMove() {
+        System.out.println("Possible move : ");
+
     }
 }

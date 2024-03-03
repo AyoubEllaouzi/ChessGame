@@ -1,5 +1,6 @@
 package fr.norsys.chess;
 
+import fr.norsys.chess.chessgame.Bishop;
 import fr.norsys.chess.chessgame.Pawn;
 import fr.norsys.chess.chessgame.PieceColor;
 import fr.norsys.chess.chessgame.Position;
@@ -89,4 +90,90 @@ public class BoardTest {
         board.validAttack(pawn, target);
         board.displayBoard();
     }
+
+    @Test
+    void testBishopPossibleMove(){
+        Bishop bishop = new Bishop(new Position(3, 3), PieceColor.WHITE);
+        bishop.toString();
+        List<Position> positions = bishop.possibleMoves();
+        for (Position p:positions){
+            System.out.println("x = "+p.getX()+" y = "+p.getY());
+        }
+    }
+
+    @Test
+    void testMoveBishop() {
+        // Create some ChessPiece objects
+        Position initialPosition = new Position(3, 3);
+        ChessPiece bishop = new Bishop(initialPosition, PieceColor.WHITE);
+        Board board = new Board(initialPosition, bishop);
+
+        // Perform the move
+        board.displayBoard();
+        System.out.println("-----------------");
+        board.takeMove(bishop, 0, 0);
+        board.displayBoard();
+        board.takeMove(bishop, 3, 3);
+        board.displayBoard();
+
+    }
+    @Test
+    void testBishopIsBlocked(){
+        Position initialPosition = new Position(3, 3);
+
+        Position targetPosition = new Position(2, 2);
+        Bishop bishop = new Bishop(initialPosition, PieceColor.WHITE);
+        bishop.setTargetPosition(targetPosition);
+
+        Board board = new Board(initialPosition, bishop);
+        board.displayBoard();
+
+        ChessPiece newPeice = new Bishop(targetPosition, PieceColor.WHITE);
+        board.gameBoard.put(targetPosition, newPeice);
+
+        // Perform the move
+        System.out.println("-----------------");
+
+        board.isBlocked(bishop);
+        board.displayBoard();
+    }
+
+    @Test
+    void testBishopIsNotBlocked(){
+        Position initialPosition = new Position(3, 3);
+
+        Position targetPosition = new Position(1, 1);
+        Bishop bishop = new Bishop(initialPosition, PieceColor.WHITE);
+        bishop.setTargetPosition(targetPosition);
+
+        Board board = new Board(initialPosition, bishop);
+        board.displayBoard();
+
+        ChessPiece newPeice = new Bishop(targetPosition, PieceColor.WHITE);
+        board.gameBoard.put(targetPosition, newPeice);
+
+        // Perform the move
+        System.out.println("-----------------");
+
+        board.isBlocked(bishop);
+        board.displayBoard();
+    }
+
+    @Test
+    void testValidAttackForBishop() {
+        Position initialPosition = new Position(3, 3);
+        Position targetPosition = new Position(5, 5);
+
+        ChessPiece bishop = new Bishop(initialPosition, PieceColor.WHITE);
+        Board board = new Board(initialPosition, bishop);
+
+        ChessPiece target = new Bishop(targetPosition, PieceColor.WHITE);
+        // Perform the move
+        board.displayBoard();
+        board.gameBoard.put(targetPosition, target);
+        board.validAttack(bishop, target);
+        board.displayBoard();
+    }
+
+
 }

@@ -47,6 +47,11 @@ public class Rook implements ChessPiece {
         return null;
     }
 
+    @Override
+    public PieceColor getColor() {
+        return null;
+    }
+
 
     //5
 }

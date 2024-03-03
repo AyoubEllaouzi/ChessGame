@@ -1,5 +1,6 @@
 package fr.norsys.chess.interfaces;
 
+import fr.norsys.chess.chessgame.PieceColor;
 import fr.norsys.chess.chessgame.Position;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ChessPiece {
     public List<Position> possibleMoves();
     public List<Position> possibleAttacks();
     public Position isBlocked();
+
+    PieceColor getColor();
 }
